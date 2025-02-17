@@ -1,0 +1,29 @@
+.conteinerHeader{
+    display: flex;
+    background-color: #262626;
+    justify-content: space-between;
+    height: 70px;
+    width: auto;
+    align-items: center;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+}
+
+.profile-data{
+    margin-right: 50px;
+    background-color: #646464;
+}
+
+.logo{
+    margin-left: 50px;
+}
+
+.search input{
+    display: flex;
+    height: 20px;
+    width: 400px;
+    background: #646464;
+}
