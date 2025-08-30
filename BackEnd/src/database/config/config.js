@@ -17,9 +17,9 @@ module.exports= {
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "password": "KaGWUuDCcqgFlVOlkrIjQuzyzVcOHSeo",
+    "database": "railway",
+    "host": "gondola.proxy.rlwy.net",
     "port": 40061,
     "dialect": "mysql"
   }
