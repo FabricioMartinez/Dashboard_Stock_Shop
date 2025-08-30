@@ -1,9 +1,10 @@
 module.exports= {
   "development": {
     "username": "root",
-    "password": "1645",
-    "database": "stockcontrol",
-    "host": "127.0.0.1",
+    "password": "KaGWUuDCcqgFlVOlkrIjQuzyzVcOHSeo",
+    "database": "railway",
+    "host": "gondola.proxy.rlwy.net",
+    "port": 40061,
     "dialect": "mysql"
   },
   "test": {
@@ -11,6 +12,7 @@ module.exports= {
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
+    "port": 40061,
     "dialect": "mysql"
   },
   "production": {
@@ -18,6 +20,7 @@ module.exports= {
     "password": null,
     "database": "database_production",
     "host": "127.0.0.1",
+    "port": 40061,
     "dialect": "mysql"
   }
 }

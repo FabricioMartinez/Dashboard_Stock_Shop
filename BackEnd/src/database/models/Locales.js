@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      tableName: "Locales",
+      tableName: "locales",
       timestamps: false
     }
   );
