@@ -1,8 +1,8 @@
 module.exports= {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "carterasstockdb",
+    "password": "1645",
+    "database": "stockcontrol",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
