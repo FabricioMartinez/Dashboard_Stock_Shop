@@ -13,14 +13,14 @@ function Home() {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/resumen")
+    fetch("https://dashboard-stock-shop.onrender.com/resumen")
       .then(res => res.json())
       .then(data => setResumen(data));
   }, []);
 
     // Fetch productos para el gráfico
   useEffect(() => {
-    fetch("http://localhost:3000/productos")
+    fetch("https://dashboard-stock-shop.onrender.com/productos")
       .then(res => res.json())
       .then(data => setProductos(data));
   }, []);
