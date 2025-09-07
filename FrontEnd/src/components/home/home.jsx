@@ -4,35 +4,41 @@ import Option from "../option/option";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDesktop, faBagShopping, faMoneyBill, faCartShopping, faDollarSign, faChartSimple, faHandHoldingDollar, faStore } from '@fortawesome/free-solid-svg-icons';
 import "./home.css";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, PieChart, Sector } from 'recharts';
 
 function Home() {
 
   const [resumen, setResumen] = useState({});
   const [productos, setProductos] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("https://dashboard-stock-shop.onrender.com/resumen")
+    fetch(`${import.meta.env.VITE_API_URL}/ventas-por-local`)
+      .then(res => res.json())
+      .then(ventas => {
+        const formatted = ventas.map(v => ({
+          name: v.Locale?.nombre_local || "Desconocido",
+          value: parseInt(v.totalVentas, 10)
+        }));
+        setData(formatted);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/resumen`)
       .then(res => res.json())
       .then(data => setResumen(data));
   }, []);
-
-    // Fetch productos para el gráfico
   useEffect(() => {
-    fetch("https://dashboard-stock-shop.onrender.com/productos")
+    fetch(`${import.meta.env.VITE_API_URL}/productos`)
       .then(res => res.json())
       .then(data => setProductos(data));
   }, []);
-
-  // Preparar datos para el gráfico (unidades vendidas)
   const chartData = productos.map(item => ({
     name: `${item.descripcion || ""}`,
     unidadesVendidas: item.Ventas?.reduce((sum, v) => sum + v.cantidad, 0) || 0,
     stock: item.Stock?.cantidad_actual || 0
   }));
-
-
     return(
     <>
         <Header/>
@@ -75,6 +81,23 @@ function Home() {
                 </BarChart>
             </ResponsiveContainer>
             </div>
+
+<div className="TwoLevelPieChart"> 
+  <ResponsiveContainer width="100%" height="100%">
+    <PieChart>
+      <Pie
+        data={data}
+        cx="50%"
+        cy="50%"
+        innerRadius={60}
+        outerRadius={90}
+        dataKey="value"
+        fill="#8884d8"
+        label={(entry) => `${entry.name}: ${entry.value}`}
+      />
+    </PieChart>
+  </ResponsiveContainer>
+</div>
         </div>
     </>
     )

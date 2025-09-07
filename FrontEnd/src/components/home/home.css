@@ -91,3 +91,11 @@ p {
     flex-direction: column;
     align-items: center;
 }
+
+.TwoLevelPieChart {
+  grid-column: 1 / -1; /* ocupa de la 1ra a la última columna */
+  grid-row: auto;      /* que caiga debajo del gráfico anterior */
+  width: 100%;
+  height: 400px;
+  margin-top: 30px;
+}

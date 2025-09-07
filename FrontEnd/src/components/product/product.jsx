@@ -12,7 +12,7 @@ function Product(){
       const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    fetch("https://dashboard-stock-shop.onrender.com/productos")
+    fetch(`${import.meta.env.VITE_API_URL}/productos`)
       .then(res => res.json())
       .then(data => setProductos(data));
   }, []);

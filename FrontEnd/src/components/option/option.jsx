@@ -26,7 +26,7 @@ function Option(){
                     <p>Gastos</p>
                 </div>
             </a>
-            <a href="" className='linkHome'>
+            <a href="./ventas" className='linkHome'>
                 <div className='option-contain'>
                     <FontAwesomeIcon className='icon' icon={faCartShopping} />
                     <p>Venta</p>
