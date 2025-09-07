@@ -3,9 +3,9 @@ const db = require("./database/models"); // tu ruta a models
 const { Op } = require("sequelize");
 const cors = require('cors');
 const app = express();
-const PORT = 3000;
 app.use(cors()); 
 app.use(express.json());
+require("dotenv").config();
 
 
 app.get("/resumen", async (req, res) => {
@@ -150,4 +150,51 @@ app.get("/compras", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+app.get("/ventas", async (req, res) => {
+  try {
+    const ventas = await db.Ventas.findAll({
+      include: [
+        {
+          model: db.ProductoDetalle,
+          attributes: ["descripcion", "talle", "color"]  // lo que quieras mostrar
+        },
+        {
+          model: db.Locales,
+          attributes: ["nombre"]  // ejemplo, nombre del local
+        }
+      ],
+      order: [["fecha", "DESC"]] // ordenadas de más reciente a más vieja
+    });
+
+    res.json(ventas);
+  } catch (error) {
+    console.error("Error al obtener ventas:", error);
+    res.status(500).json({ error: "Error al obtener ventas" });
+  }
+});
+
+
+app.get("/ventas-por-local", async (req, res) => {
+  try {
+    const ventas = await db.Ventas.findAll({
+      attributes: [
+        "id_local",
+        [db.sequelize.fn("COUNT", db.sequelize.col("id_venta")), "totalVentas"],
+      ],
+      include: [{ model: db.Locales, attributes: ["nombre_local"] }],
+      group: ["id_local", "Locale.id_local"],
+    });
+
+    res.json(ventas);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error al obtener ventas por local" });
+  }
+});
+
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
